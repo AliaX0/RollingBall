@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 jump;
     public float jumpForce = 2.8f;
     private bool isGrounded = false;
+    public int score;
+    public TMPro.TMP_Text scoreText;
 
     // Start is called before the first frame update
     void Start()
@@ -32,16 +37,16 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
+    //void OnTriggerEnter(Collider other)
+    //{
         //if the other object entering our trigger zone
         //has a tag called 'Pick Up'
-        if(other.gameObject.CompareTag("Pick Up"))
-        {
+        //if(other.gameObject.CompareTag("Pick Up"))
+        //{
             //deactivate the other object
-            other.gameObject.SetActive (false);
-        }
-    }
+        //    other.gameObject.SetActive (false);
+        //}
+    //}
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag=="ground")
@@ -59,5 +64,17 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    }
+
+
+
+    public void increaseScore(){
+        score++;
+        //Debug.Log(score);
+    }
+
+    
+    void LateUpdate(){
+        scoreText.text = ""+score+"";
     }
 }
